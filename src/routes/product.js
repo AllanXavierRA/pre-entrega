@@ -24,8 +24,6 @@ router.post('/', async(req, res) => {
 })
 
 router.delete('/:pid', async(req, res) => {
-    // TODO: Terminar validacion si existe un archivo por eliminar
-    // TODO: Si el archivo se elimino correctamente lanzar un mensaje
     const {pid} = req.params;
     await productManager.deleteProduct(Number(pid));
     res.send('producto eliminado')

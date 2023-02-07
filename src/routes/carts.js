@@ -4,12 +4,20 @@ const CartManager = require('../controller/cartManager');
 const cartManager = new CartManager('cart.json');
 
 router.post('/', async(req, res) => {
-    // TODO: validar id unico en CartManager
     const {productos} = req.body;
     await cartManager.addCart(productos);
 
 })
 
-router.get('/:cid')
+router.get('/:cid', async(req, res) => {
+  const {cid} = req.params;
+  const products = await cartManager.getProductsByCart(Number(cid));
+  res.send(products)  
+})
+
+router.post('/:cid/product/:pid', async(req, res) => {
+    const {cid, pid} = req.params;
+    await cartManager.addProductToCart(Number(cid), Number(pid))
+})
 
 module.exports = router;
